@@ -1,0 +1,11 @@
+Roles m_attr3_ma3_value7 SUPER_ROLE ;
+
+Users user0 user1 SUPER_USER user7 user10 ;
+
+UA <user7,m_attr3_ma3_value7> <user10,m_attr3_ma3_value7> <SUPER_USER,SUPER_ROLE> ;
+
+CR ;
+
+CA ;
+
+SPEC m_attr3_ma3_value7 ;

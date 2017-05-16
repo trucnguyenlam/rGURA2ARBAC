@@ -1,0 +1,11 @@
+Roles m_attr5_ma5_value1 SUPER_ROLE ;
+
+Users user0 user1 SUPER_USER user3 user7 ;
+
+UA <user3,m_attr5_ma5_value1> <user7,m_attr5_ma5_value1> <SUPER_USER,SUPER_ROLE> ;
+
+CR ;
+
+CA ;
+
+SPEC m_attr5_ma5_value1 ;

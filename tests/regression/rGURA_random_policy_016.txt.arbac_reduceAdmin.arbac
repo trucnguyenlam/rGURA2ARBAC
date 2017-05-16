@@ -1,0 +1,11 @@
+Roles s_attr12_sa12_value7 SUPER_ROLE ;
+
+Users user0 user1 SUPER_USER user6 user10 ;
+
+UA <user6,s_attr12_sa12_value7> <user10,s_attr12_sa12_value7> <SUPER_USER,SUPER_ROLE> ;
+
+CR ;
+
+CA ;
+
+SPEC s_attr12_sa12_value7 ;

@@ -1,0 +1,11 @@
+Roles s_attr9_sa9_value2 SUPER_ROLE ;
+
+Users user0 user1 SUPER_USER user4 ;
+
+UA <user1,s_attr9_sa9_value2> <user4,s_attr9_sa9_value2> <SUPER_USER,SUPER_ROLE> ;
+
+CR <SUPER_ROLE,s_attr9_sa9_value2> ;
+
+CA ;
+
+SPEC s_attr9_sa9_value2 ;

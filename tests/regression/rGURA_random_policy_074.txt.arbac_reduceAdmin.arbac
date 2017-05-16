@@ -1,0 +1,11 @@
+Roles s_attr0_sa0_value2 SUPER_ROLE ;
+
+Users user0 user1 SUPER_USER user14 ;
+
+UA <SUPER_USER,s_attr0_sa0_value2> <user14,s_attr0_sa0_value2> <SUPER_USER,SUPER_ROLE> ;
+
+CR ;
+
+CA ;
+
+SPEC s_attr0_sa0_value2 ;

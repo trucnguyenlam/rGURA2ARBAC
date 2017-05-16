@@ -1,0 +1,11 @@
+Roles m_attr4_ma4_value2 SUPER_ROLE ;
+
+Users user0 user1 SUPER_USER user3 ;
+
+UA <SUPER_USER,m_attr4_ma4_value2> <user3,m_attr4_ma4_value2> <SUPER_USER,SUPER_ROLE> ;
+
+CR ;
+
+CA ;
+
+SPEC m_attr4_ma4_value2 ;

@@ -1,0 +1,11 @@
+Roles m_attr0_ma0_value8 SUPER_ROLE ;
+
+Users user0 user1 SUPER_USER user3 ;
+
+UA <user1,m_attr0_ma0_value8> <SUPER_USER,m_attr0_ma0_value8> <SUPER_USER,SUPER_ROLE> ;
+
+CR ;
+
+CA ;
+
+SPEC m_attr0_ma0_value8 ;

@@ -1,0 +1,63 @@
+// This is a comment
+// Reserved keywords: USERS, ATTRIBUTE_SINGLE, ATTRIBUTE_MULTIPLE, SCOPE, UATTR_S, UATTR_M, ADMINROLES, RULES, SPEC
+
+USERS // list of users
+u0
+u1
+u2
+u3
+u4
+u5
+;
+
+ATTRIBUTE_SINGLE // List of single-value attributes
+name
+city
+gender
+;
+
+ATTRIBUTE_MULTIPLE // List of multi-value attributes
+role
+permission
+;
+
+SCOPE // Scope of each attribute
+// <attribute_name, list of values>
+<name, Sigma Alpha Gamma>
+<gender, male female>
+<city, Tokyo NewYork London HongKong>
+<role, Doctor Student Patient>
+<permission, openfile closefile appendfile removefile deletefile>
+;
+
+UATTR_S // User Single-value Attribute Assignment
+// user_name <attribute_name, value> ...
+u0 <name, Gamma> <gender, female> <city, Tokyo>
+u1 <name, Sigma> <gender, male> <city, London>
+;
+
+UATTR_M // User Multi-value Attribute Assignment
+// user_name <attribute_name, value1, value2, ...> ...
+u1 <role, Student> <permission, closefile, removefile>
+u3 <role, Patient, Student> <permission, closefile, removefile, openfile>
+;
+
+
+ADMINROLES // list of administrative roles
+admin
+;
+
+RULES
+// Assign rule
+<admin, name=Gamma & not city=Tokyo & role=Student, gender, male>
+// Add rule
+<admin, gender=female & not city=London & name=Alpha, role, Patient>
+// Delete rule
+<admin, role, Student>
+<admin, city, HongKong>
+;
+
+SPEC
+// Attribute-reachability problem
+name Sigma
+;

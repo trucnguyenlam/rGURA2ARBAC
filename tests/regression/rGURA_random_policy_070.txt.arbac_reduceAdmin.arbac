@@ -1,0 +1,11 @@
+Roles s_attr4_sa4_value4 SUPER_ROLE ;
+
+Users user0 user1 SUPER_USER user10 ;
+
+UA <user10,s_attr4_sa4_value4> <SUPER_USER,SUPER_ROLE> ;
+
+CR ;
+
+CA ;
+
+SPEC s_attr4_sa4_value4 ;
