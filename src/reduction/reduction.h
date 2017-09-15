@@ -6,13 +6,15 @@
 #include "parser/myrGURAListener.h"
 
 namespace VAC {
+
+class ReductionException: public ParserException {
+ public:
+  ReductionException(const std::string &msg = "") : ParserException(msg) {};
+};
+
 class Reduction {
   public:
-    std::string reduceRGURAPolicy(const std::string filename, bool);
-  private:
-    std::string to_ARBACURA_precondition(PreconditionPtr p, rGURAPtr policy) const ;
-    std::string to_ARBACURA_policy(rGURAPtr policy, bool) const;
-
+    std::string reduceRGURAPolicyToARBACURA(const std::string filename, bool);
 };
 
 } // VAC

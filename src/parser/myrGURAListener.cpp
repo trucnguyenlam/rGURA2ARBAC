@@ -59,7 +59,6 @@ void myrGURAListener::enterR_admin(rGURAParser::R_adminContext * ctx) {
         }
         this->policy->insertAdminRole(adminrole);
     }
-
 }
 
 void myrGURAListener::enterUas_element(rGURAParser::Uas_elementContext * ctx) {
@@ -245,29 +244,31 @@ void myrGURAListener::enterDelete_rule(rGURAParser::Delete_ruleContext * ctx) {
 
 
 void myrGURAListener::enterR_spec(rGURAParser::R_specContext * ctx) {
-    std::string attrname = ctx->attr->getText();
-    AttributePtr attr = this->policy->getAttribute(attrname);
-    if (attr) {
-        std::string valuename = ctx->value->getText();
-        DomainPtr d = this->policy->getScope()->getDomain(attrname);
-        if (!d) {
-            throw ParserException(
-                "Error in line  " + getTokenLocation(ctx->attr)
-                + ": undefined domain for attribute " + attrname);
-        }
-        int value_id = d->getValueID(valuename);
-        if (value_id < 0) {
-            throw ParserException(
-                "Error in line  " + getTokenLocation(ctx->value)
-                + ": value " + valuename + " is undefined!");
-        }
-        TargetPtr t = std::make_shared<EqualExpression>(EqualExpression(attrname, valuename));
-        this->policy->setQuery(t);
-    } else {
-        throw ParserException(
-            "Error in line  " + getTokenLocation(ctx->attr)
-            + ": attribute " + attrname + " is undefined!");
-    }
+    // std::string attrname = ctx->attr->getText();
+    // AttributePtr attr = this->policy->getAttribute(attrname);
+    // if (attr) {
+    //     std::string valuename = ctx->value->getText();
+    //     DomainPtr d = this->policy->getScope()->getDomain(attrname);
+    //     if (!d) {
+    //         throw ParserException(
+    //             "Error in line  " + getTokenLocation(ctx->attr)
+    //             + ": undefined domain for attribute " + attrname);
+    //     }
+    //     int value_id = d->getValueID(valuename);
+    //     if (value_id < 0) {
+    //         throw ParserException(
+    //             "Error in line  " + getTokenLocation(ctx->value)
+    //             + ": value " + valuename + " is undefined!");
+    //     }
+    //     TargetPtr t = std::make_shared<EqualExpression>(EqualExpression(attrname, valuename));
+    //     this->policy->setQuery(t);
+    // } else {
+    //     throw ParserException(
+    //         "Error in line  " + getTokenLocation(ctx->attr)
+    //         + ": attribute " + attrname + " is undefined!");
+    // }
+    PreconditionPtr precond = buildPrecondition(ctx->precondition());
+    this->policy->setQuery(precond);
 }
 
 // Private stub

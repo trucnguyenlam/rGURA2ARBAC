@@ -1,38 +1,19 @@
+// @author: trucnguyenlam@gmail.com
+// @description:
+//      reduction from rGURA to ARBAC-URA
+// TODO:
+//
+// @changeLog:
+//    2017.09.15   Update translation of spec 
+//    2017.05.09   Initial version
+
 #include "reduction.h"
 
 using namespace VAC;
 
-std::string Reduction::reduceRGURAPolicy(const std::string filename, bool debug) {
-    std::ifstream stream;
-    stream.open(filename);
+namespace {
 
-    if (not stream.good()) {
-        throw ParserException("Error: file" + std::string(filename) + " does not exist!");
-    }
-
-    antlr4::ANTLRInputStream input(stream);
-    rGURALexer lexer(&input);
-    antlr4::CommonTokenStream tokens(&lexer);
-
-    // Create parser
-    rGURAParser parser(&tokens);
-    antlr4::tree::ParseTree * program = parser.file();
-
-    // Work through parser tree to produce the model
-    myrGURAListener listener;
-    antlr4::tree::ParseTreeWalker::DEFAULT.walk(&listener, program);
-
-    stream.close();
-
-    rGURAPtr policy = listener.getPolicy();
-    if (debug) {
-        std::cout << policy->to_string();
-    }
-    std::string ret = to_ARBACURA_policy(policy, debug);
-    return ret;
-}
-
-std::string Reduction::to_ARBACURA_precondition(PreconditionPtr p, rGURAPtr policy) const {
+std::string to_ARBACURA_precondition(PreconditionPtr p, rGURAPtr policy) {
     std::string ret = "";
     if (p->isTrue) {
         ret += "TRUE";
@@ -63,7 +44,7 @@ std::string Reduction::to_ARBACURA_precondition(PreconditionPtr p, rGURAPtr poli
 }
 
 // Private
-std::string Reduction::to_ARBACURA_policy(rGURAPtr policy, bool debug) const {
+std::string to_ARBACURA_policy(rGURAPtr policy, bool debug) {
     std::string user_str, role_str, ua_str, ca_str, cr_str, spec_str;
     // 1. User and Administrative Role
     user_str = "USERS\n";
@@ -81,6 +62,10 @@ std::string Reduction::to_ARBACURA_policy(rGURAPtr policy, bool debug) const {
         ua_str += "<ADMINUSER_" + std::to_string(i) + ", " + r + ">\n";
         i++;
     }
+    if (i == 0) {
+        throw VAC::ReductionException("Administrative Roles is empty!");
+    }
+
     user_str += ";\n";
 
     // 2. Scope
@@ -90,7 +75,6 @@ std::string Reduction::to_ARBACURA_policy(rGURAPtr policy, bool debug) const {
             role_str += attrname + "_" + v + '\n';
         }
     }
-    role_str += ";\n";
 
     // 3. UAttri
     for (const auto& u : policy->getUsers()) {
@@ -117,7 +101,6 @@ std::string Reduction::to_ARBACURA_policy(rGURAPtr policy, bool debug) const {
         ca_str += ", " + r->getTarget()->getAttribute() + "_" + r->getTarget()->getValue() + ">\n";
     }
 
-    ca_str += ";\n";
     // 6. Can_delete
     cr_str = "CR\n";
     for (const auto & r : policy->getDelete_rules()) {
@@ -125,8 +108,61 @@ std::string Reduction::to_ARBACURA_policy(rGURAPtr policy, bool debug) const {
     }
     cr_str += ";\n";
     // 7. Query
-    spec_str = "SPEC ";
-    spec_str += policy->getQuery()->getAttribute() + "_" + policy->getQuery()->getValue() + ";\n";
+    spec_str = "SPEC role_Target;\n";
+
+    // Add new target role to role_str
+    role_str += "role_Target\n";
+    role_str += ";\n";
+
+    // add new rule to can_assign
+    // pick any admin from AR (the first one)
+    for (const auto& r : policy->getAdmin_roles()) {
+        ca_str += "<" + r + ", ";
+        ca_str += to_ARBACURA_precondition(policy->getQuery(), policy);
+        ca_str += ", role_Target>\n";
+        break;
+    }    
+    ca_str += ";\n";
 
     return (user_str + role_str + ua_str + ca_str + cr_str + spec_str);
 }
+
+
+} // Annonymous namespace
+
+
+std::string Reduction::reduceRGURAPolicyToARBACURA(const std::string filename, bool debug) {
+    std::ifstream stream;
+    stream.open(filename);
+
+    if (not stream.good()) {
+        throw ParserException("Error: file" + std::string(filename) + " does not exist!");
+    }
+
+    antlr4::ANTLRInputStream input(stream);
+    rGURALexer lexer(&input);
+    antlr4::CommonTokenStream tokens(&lexer);
+
+    // Create parser and parse the policy
+    rGURAParser parser(&tokens);
+    antlr4::tree::ParseTree * program = parser.file();
+
+    // Work through parser tree to produce the model
+    myrGURAListener listener;
+    antlr4::tree::ParseTreeWalker mywalker;
+    mywalker.walk(&listener, program);
+
+    stream.close();
+
+    // Get the policy from parsed tree (AST)
+    rGURAPtr policy = listener.getPolicy();
+
+    if (debug) {
+        std::cout << policy->to_string();
+    }
+
+    std::string ret = "";
+    ret = to_ARBACURA_policy(policy, debug);
+    return ret;
+}
+

@@ -365,11 +365,11 @@ int rGURA::getCurrentAttributeSize(void) const {
     return attrs.size();
 }
 
-TargetPtr rGURA::getQuery(void) const {
+PreconditionPtr rGURA::getQuery(void) const {
     return query;
 }
 
-void rGURA::setQuery(TargetPtr t) {
+void rGURA::setQuery(PreconditionPtr t) {
     query = t;
 }
 

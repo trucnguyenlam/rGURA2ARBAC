@@ -418,14 +418,11 @@ public:
 
   class  R_specContext : public antlr4::ParserRuleContext {
   public:
-    antlr4::Token *attr = nullptr;;
-    antlr4::Token *value = nullptr;;
     R_specContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *SPEC();
+    PreconditionContext *precondition();
     antlr4::tree::TerminalNode *SEMI();
-    std::vector<antlr4::tree::TerminalNode *> Identifier();
-    antlr4::tree::TerminalNode* Identifier(size_t i);
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;

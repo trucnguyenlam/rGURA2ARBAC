@@ -58,6 +58,5 @@ RULES
 ;
 
 SPEC
-// Attribute-reachability problem
-name Sigma
+name=Sigma
 ;

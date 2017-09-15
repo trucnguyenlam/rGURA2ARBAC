@@ -9,6 +9,7 @@
         antlr4 -Werror -Dlanguage=Cpp -package VAC rGURA.g4
 
  @changelog:
+    2017.09.15   Updated version with different query
     2017.05.09   Initial version
  */
 
@@ -112,8 +113,12 @@ atom
     :   NOT? attr=Identifier EQUAL value=Identifier
     ;
 
+
+//r_spec
+//    :   SPEC (attr=Identifier) (value=Identifier) SEMI
+//    ;
 r_spec
-    :   SPEC (attr=Identifier) (value=Identifier) SEMI
+    :   SPEC precondition SEMI
     ;
 
 

@@ -218,7 +218,7 @@ class rGURA {
   public:
     rGURA() {
         scope = std::make_shared<Scope>(Scope());
-        query = std::make_shared<EqualExpression>(EqualExpression("", ""));
+        // query = std::make_shared<EqualExpression>(EqualExpression("", ""));
         }
     ~rGURA() {}
 
@@ -237,8 +237,11 @@ class rGURA {
 
     int getCurrentUserSize(void) const;
     int getCurrentAttributeSize(void) const;
-    TargetPtr getQuery(void) const;
-    void setQuery(TargetPtr t);
+
+    PreconditionPtr getQuery(void) const;
+    void setQuery(PreconditionPtr t);
+    // TargetPtr getQuery(void) const;
+    // void setQuery(TargetPtr t);
 
     const std::vector<UserPtr> & getUsers(void) const;
     const std::vector<AttributePtr> &  getAttrs(void) const;
@@ -256,7 +259,8 @@ class rGURA {
     std::vector<AddRulePtr> add_rules;
     std::vector<DeleteRulePtr> delete_rules;
     ScopePtr scope;
-    TargetPtr query;
+    // TargetPtr query;
+    PreconditionPtr query;
 
     std::map<std::string, int> user_map;
     std::map<std::string, int> attr_map;

@@ -46,7 +46,7 @@ int main(int argc, const char* argv[]) {
     }
 
     std::string inputFilename = args::get(input);
-    std::string outputpolicy = Reduction().reduceRGURAPolicy(inputFilename, debugFlag);
+    std::string outputpolicy = Reduction().reduceRGURAPolicyToARBACURA(inputFilename, debugFlag);
 
     std::string outputFilename = inputFilename + ".arbac";
     if (output) {

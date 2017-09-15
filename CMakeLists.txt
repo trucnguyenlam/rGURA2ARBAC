@@ -5,6 +5,10 @@ LIST( APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake )
 
 # compiler must be 11 or 14
 SET (CMAKE_CXX_STANDARD 11)
+# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static")
+# SET(BUILD_SHARED_LIBRARIES OFF)
+# SET(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
+# SET(CMAKE_EXE_LINKER_FLAGS "-static")
 
 # set variable pointing to the antlr tool that supports C++
 # set(ANTLR4CPP_JAR_LOCATION ${PROJECT_SOURCE_DIR}/thirdparty/antlr/antlr-4.7-complete.jar)
@@ -44,9 +48,6 @@ set(SOURCES
     ${PROJECT_SOURCE_DIR}/src/main.cpp
 )
 
-# SET(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
-# SET(BUILD_SHARED_LIBRARIES OFF)
-# SET(CMAKE_EXE_LINKER_FLAGS "-static")
 
 # add generated grammar to demo binary target
 add_executable(rGURAConverter ${SOURCES} ${antlr_generated_files} ${reduction_files})
