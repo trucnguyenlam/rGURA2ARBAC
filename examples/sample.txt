@@ -58,5 +58,6 @@ RULES
 ;
 
 SPEC
+// formula like in precondition of assign or add rule
 name=Sigma
 ;
