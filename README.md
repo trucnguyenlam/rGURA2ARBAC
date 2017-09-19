@@ -5,7 +5,7 @@ This directory contains source code for the translation from rGURA to ARBAC-URA
 Please refer to [sample.txt](examples/sample.txt)
 
 # Installation
-The tool has been successfully tested on Ubuntu 16.04 x64
+The tool has been successfully tested on Ubuntu 16.04 x86_64
 and MacOS Sierra.
 ## Prerequisites
 ### Linux
