@@ -2,7 +2,7 @@
 This directory contains source code for the translation from rGURA to ARBAC-URA
 
 # Language Specification
-Please refer to [examples/sample.txt](sample.txt)
+Please refer to [sample.txt](examples/sample.txt)
 
 # Installation
 The tool has been successfully tested on Ubuntu 16.04 x64
