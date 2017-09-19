@@ -28,7 +28,8 @@ The executable file `rGURAConverter` will be created in `build` directory.
 *Note* for MacOS, please copy `build/locals/antl4cpp/lib/libantlr4-runtime.4.7.dylib` into `build` directory.
 
 # Usage
-Please launch `rGURAConverter` with `-h` option.
+Please launch `rGURAConverter` with `-h` option. Example: 
+```./rGURAConverter -i ../examples/sample.txt```
 
 # Note
 Please contact me on trucnguyenlam@gmail.com for any problem.
